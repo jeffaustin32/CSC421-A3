@@ -38,17 +38,11 @@ model.check_model()
 # the rating is 2 stars
 # the exam score is high
 # and the recommendation letter is weak
-from pgmpy.inference import VariableElimination
+#from pgmpy.inference import VariableElimination
+from pgmpy.inference.ExactInference import VariableElimination
 infer = VariableElimination(model)
-print(infer.query(['R'], evidence={'M': 1, 'D': 0, 'E': 1, 'L': 0}) ['R'])
-
-
-print(infer.query(['L'], evidence={'M': 1, 'D': 0, 'E': 1, 'R': 1}) ['L'])
-
-# print(infer.query(['D']) ['D'])
-# print(infer.query(['M']) ['M'])
+print(infer.query(['D']) ['D'])
+print(infer.query(['M']) ['M'])
 print(infer.query(['R'], evidence={'M': 1, 'D': 0}) ['R'])
-# print(infer.query(['E'], evidence={'M': 1}) ['E'])
-# print(infer.query(['L'], evidence={'R': 1}) ['L'])
-
-
+print(infer.query(['E'], evidence={'M': 1}) ['E'])
+print(infer.query(['L'], evidence={'R': 1}) ['L'])

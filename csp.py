@@ -2,8 +2,8 @@ from constraint import Problem
 
 # Define variables for the CSP problem
 problem = Problem()
-problem.addVariable("f", [0, 1])
-problem.addVariable("t", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+problem.addVariable("f", [1])
+problem.addVariable("t", [1, 2, 3, 4, 5, 6, 7, 8, 9])
 problem.addVariable("u", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 problem.addVariable("w", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 problem.addVariable("r", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -20,4 +20,6 @@ problem.addConstraint(lambda f, c1000: f == c1000, ("f", "c1000"))
 
 # Solve the CSP problem
 solutions = problem.getSolutions()
+print(solutions)
+print(len(solutions))
 print(solutions)

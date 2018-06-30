@@ -1,6 +1,6 @@
 from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete import TabularCPD
-from pgmpy.inference.ExactInference import VariableElimination
+from pgmpy.sampling import BayesianModelSampling
 
 # Defining the model structure. We can define the network by just passing a list of edges.
 model = BayesianModel([('D', 'R'), ('M', 'R'), ('M', 'E'), ('R', 'L')])
@@ -34,8 +34,32 @@ model.add_cpds(cpd_d, cpd_m, cpd_r, cpd_l, cpd_e)
 # defined and sum to 1.
 model.check_model()
 
-infer = VariableElimination(model)
-# Probability of getting strong recommendation letter -> 50.2%
-print(infer.query(['L']) ['L'])
-# weak musician -> 38.9% 
-print(infer.query(['L'], evidence={'M': 0}) ['L'])
+# Forward_sample then iterate and count strong musician/ good letter/both
+inference = BayesianModelSampling(model)
+numSamples = 10000
+samples = inference.forward_sample(size=numSamples, return_type='recarray')
+
+part1 = 0
+strongLetter = 0
+weakMusician = 0
+strongLetterWeakMuscician = 0
+
+# Samples have structure (M E D R L)
+for sample in samples:
+    # P(m = strong)P(d = low)P(r = ∗ ∗ |m = strong, d = low)P(e = high|m = strong)P(letter = weak| ∗ ∗)
+    if sample[0] and not sample[2] and sample[3] == 2 and sample[1] and not sample[4]:
+        part1 += 1
+    # P(letter = strong)
+    if sample[4]:
+        strongLetter += 1
+    if not sample[0]:
+        weakMusician += 1
+    # P(m = strong)P(letter = strong)
+    if not sample[0] and sample[4]:
+        strongLetterWeakMuscician += 1
+
+print("Part 1: ", part1 / numSamples)
+print("Strong letter: ", strongLetter / numSamples)
+print("Strong letter given weak musician:", strongLetterWeakMuscician / weakMusician)
+
+

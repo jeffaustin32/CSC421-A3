@@ -1,5 +1,6 @@
 from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete import TabularCPD
+from pgmpy.inference.ExactInference import VariableElimination
 
 # Defining the model structure. We can define the network by just passing a list of edges.
 model = BayesianModel([('D', 'R'), ('M', 'R'), ('M', 'E'), ('R', 'L')])
@@ -39,7 +40,6 @@ model.check_model()
 # the exam score is high
 # and the recommendation letter is weak
 #from pgmpy.inference import VariableElimination
-from pgmpy.inference.ExactInference import VariableElimination
 infer = VariableElimination(model)
 print(infer.query(['D']) ['D'])
 print(infer.query(['M']) ['M'])

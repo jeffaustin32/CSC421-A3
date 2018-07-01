@@ -54,7 +54,7 @@ for sample in samples:
         strongLetter += 1
     if not sample[0]:
         weakMusician += 1
-    # P(m = strong)P(letter = strong)
+    # P(m = weak)P(letter = strong)
     if not sample[0] and sample[4]:
         strongLetterWeakMuscician += 1
 

@@ -70,4 +70,5 @@ problem.addConstraint(lambda E12, E14, E11: arrowJunction(E12, E14, E11), ("E12"
 
 # Solve the CSP problem
 solutions = problem.getSolutions()
-print(solutions)
+for solution in solutions:
+    print(solution)

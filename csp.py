@@ -22,6 +22,6 @@ problem.addConstraint(lambda f, t, u, w, r, o: len(set([f, t, u, w, r, o])) == 6
 
 # Solve the CSP problem
 solutions = problem.getSolutions()
-print(solutions)
-print(len(solutions))
-print(solutions)
+
+for solution in solutions:
+    print(solution)

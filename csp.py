@@ -17,6 +17,8 @@ problem.addConstraint(lambda o, r, c10: o + o == r + (10*c10), ("o", "r", "c10")
 problem.addConstraint(lambda w, u, c10, c100: c10 + w + w == u + (10*c100), ("w", "u", "c10", "c100"))
 problem.addConstraint(lambda o, t, c100, c1000: c100 + t + t == o + (10*c1000), ("o", "t", "c100", "c1000"))
 problem.addConstraint(lambda f, c1000: f == c1000, ("f", "c1000"))
+# All diff
+problem.addConstraint(lambda f, t, u, w, r, o: len(set([f, t, u, w, r, o])) == 6, ("f", "t", "u", "w", "r", "o"))
 
 # Solve the CSP problem
 solutions = problem.getSolutions()
